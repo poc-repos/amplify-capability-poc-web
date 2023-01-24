@@ -7,7 +7,7 @@ import { Card } from '@aws-amplify/ui-react';
 const DynamicPage = ({ title, body }) => {
     return (
         <Layout title={title}>
-            <Card padding={{ base: '6rem', large: 'medium' }} borderRadius="medium" variation="outlined">
+            <Card padding={{ base: '6rem 1rem 1rem 1rem', large: 'medium' }} borderRadius="medium" variation="outlined">
                 <ReactMarkdown>{body}</ReactMarkdown>
             </Card>
         </Layout>
