@@ -5,7 +5,7 @@ import { DataStore } from '@aws-amplify/datastore';
 import { Page } from '@/models';
 import { useEffect, useState } from 'react';
 
-export default function Navbar({ pageLinks }) {
+export default function Navbar({ pages }) {
   const theme = useTheme();
 
   const { user, signOut } = useAuthenticator((context) => [context.user]);
@@ -13,18 +13,6 @@ export default function Navbar({ pageLinks }) {
   const userGroups = user?.getSignInUserSession()?.getIdToken()?.payload["cognito:groups"];
   console.log("userGroups", userGroups)
   const allUserGroups = userGroups ? userGroups.join(",") : "-";
-
-  const [items, setItems] = useState([]);
-
-  const getDataFromAWS = async () => {
-    const models = await DataStore.query(Page);
-    console.log(models);
-    setItems(models)
-  }
-
-  useEffect(() => {
-    getDataFromAWS();
-  }, []);
 
   return (
     <Flex
@@ -63,7 +51,7 @@ export default function Navbar({ pageLinks }) {
           <Text padding={'medium'}><b>Role:&nbsp;</b><i style={{ color: theme.tokens.colors.teal[80] }}>{allUserGroups}</i></Text>
           <Divider />
           <MenuItem isDisabled>Pages</MenuItem>
-          {items && items.map((page) => (
+          {pages && pages.map((page) => (
             <MenuItem key={page.id}><a href={`/${page.slug}`}>{page.title}</a></MenuItem>
           ))}
           <Divider />

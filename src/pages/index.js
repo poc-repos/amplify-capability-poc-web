@@ -4,8 +4,10 @@ import AppList from '@/components/applist'
 import FAQList from '@/components/faqlist'
 import MyRequests from '@/components/myrequests'
 import MyWorklist from '@/components/myworklist'
+import { DataStore } from '@aws-amplify/datastore';
+import { FAQs, Page, WebApplications } from '@/models'
 
-export default function Home() {
+export default function Home({webapps, faqs, pages}) {
   const title = "Amplify Studio";
   const webApps = [
     {
@@ -33,14 +35,14 @@ export default function Home() {
   ];
 
   return (
-    <Layout title={title}>
+    <Layout title={title} pages={JSON.parse(pages)}>
       <View padding={{base: '6rem', large:'0'}}>
         <Tabs
           defaultIndex="0"
           padding={'1rem'}
           justifyContent="center">
           <TabItem title="Request Access">
-            <AppList />
+            <AppList items={JSON.parse(webapps)}/>
           </TabItem>
           <TabItem title="My Requests">
             <MyRequests items={webApps} />
@@ -51,18 +53,21 @@ export default function Home() {
         </Tabs>
 
       </View>
-      <FAQList items={webApps} />
+      <FAQList items={JSON.parse(faqs)} />
     </Layout>
   )
 }
 
 export async function getStaticProps({ params }) {
-  // const model = await DataStore.query(Page, p => p.slug.eq(params.slug));
-  // console.log("*** ", (model[0].title))
+  const webapps = await DataStore.query(WebApplications);
+  const faqs = await DataStore.query(FAQs);
+  const pages = await DataStore.query(Page);
 
   return {
       props: {
-          
+          webapps: JSON.stringify(webapps),
+          faqs: JSON.stringify(faqs),
+          pages: JSON.stringify(pages),
       },
   }
 }
