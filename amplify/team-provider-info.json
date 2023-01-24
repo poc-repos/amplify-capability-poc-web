@@ -17,6 +17,9 @@
           "appId": "d9nm1xcksrprr",
           "type": "cicd"
         }
+      },
+      "auth": {
+        "AmplifyCapabilityPoC": {}
       }
     }
   }

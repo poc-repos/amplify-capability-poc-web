@@ -1,8 +1,10 @@
 import styles from '@/styles/Home.module.css'
 import { Divider, Flex, Image, Link, Menu, MenuButton, MenuItem, Text, useTheme } from '@aws-amplify/ui-react'
+import { useAuthenticator } from '@aws-amplify/ui-react';
 
-export default function Navbar({ username, role, pageLinks }) {
+export default function Navbar({ role, pageLinks }) {
   const theme = useTheme();
+  const { user, signOut } = useAuthenticator((context) => [context.user]);
   return (
     <Flex
       direction="row"
@@ -33,7 +35,7 @@ export default function Navbar({ username, role, pageLinks }) {
         <Menu menuAlign="end"
           trigger={
             <MenuButton variation="link">
-              {username || "User"}
+              {(user && user.username) || "User"}
             </MenuButton>
           }
         >
@@ -44,7 +46,7 @@ export default function Navbar({ username, role, pageLinks }) {
             <MenuItem key={pageLink.text}>{pageLink.text}</MenuItem>
           ))}
           <Divider />
-          <MenuItem>Signout</MenuItem>
+          <MenuItem onClick={signOut}>Signout</MenuItem>
         </Menu>
       </Text>
     </Flex>
