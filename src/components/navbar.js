@@ -41,7 +41,7 @@ export default function Navbar({ username, role, pageLinks }) {
           <Divider />
           <MenuItem isDisabled>Pages</MenuItem>
           {pageLinks && pageLinks.map((pageLink) => (
-            <MenuItem>{pageLink.text}</MenuItem>
+            <MenuItem key={pageLink.text}>{pageLink.text}</MenuItem>
           ))}
           <Divider />
           <MenuItem>Signout</MenuItem>

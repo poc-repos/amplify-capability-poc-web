@@ -1,10 +1,12 @@
 import Head from 'next/head'
 import { Inter } from '@next/font/google'
 import styles from '@/styles/Home.module.css'
-import { Flex, Image, Link, Menu, MenuButton, MenuItem, Text, useTheme } from '@aws-amplify/ui-react'
+import { Flex, Image, Link, Menu, MenuButton, MenuItem, TabItem, Tabs, Text, useTheme, View } from '@aws-amplify/ui-react'
 import Layout from '@/components/layout'
 import AppList from '@/components/applist'
 import FAQList from '@/components/faqlist'
+import MyRequests from '@/components/myrequests'
+import MyWorklist from '@/components/myworklist'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -45,9 +47,23 @@ export default function Home() {
 
   return (
     <Layout title={title} username={username} role={role} pageLinks={pageLinks}>
-      <div className={styles.center}>
-        <AppList items={webApps} />
-      </div>
+      <View padding={{base: '6rem', large:'0'}}>
+        <Tabs
+          defaultIndex="0"
+          padding={'1rem'}
+          justifyContent="center">
+          <TabItem title="Request Access">
+            <AppList items={webApps} />
+          </TabItem>
+          <TabItem title="My Requests">
+            <MyRequests items={webApps} />
+          </TabItem>
+          <TabItem title="My Worklist">
+            <MyWorklist items={webApps} />
+          </TabItem>
+        </Tabs>
+
+      </View>
       <FAQList items={webApps} />
     </Layout>
   )
