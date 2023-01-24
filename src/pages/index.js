@@ -1,17 +1,11 @@
-import Head from 'next/head'
-import { Inter } from '@next/font/google'
-import styles from '@/styles/Home.module.css'
-import { Flex, Image, Link, Menu, MenuButton, MenuItem, TabItem, Tabs, Text, useTheme, View } from '@aws-amplify/ui-react'
+import { TabItem, Tabs, View } from '@aws-amplify/ui-react'
 import Layout from '@/components/layout'
 import AppList from '@/components/applist'
 import FAQList from '@/components/faqlist'
 import MyRequests from '@/components/myrequests'
 import MyWorklist from '@/components/myworklist'
 
-const inter = Inter({ subsets: ['latin'] })
-
 export default function Home() {
-  const theme = useTheme();
   const title = "Amplify Studio";
   const username = "Deven";
   const role = 'Approver';
@@ -53,7 +47,7 @@ export default function Home() {
           padding={'1rem'}
           justifyContent="center">
           <TabItem title="Request Access">
-            <AppList items={webApps} />
+            <AppList />
           </TabItem>
           <TabItem title="My Requests">
             <MyRequests items={webApps} />
