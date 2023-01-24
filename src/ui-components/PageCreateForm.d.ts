@@ -14,16 +14,19 @@ export declare type ValidationResponse = {
 export declare type ValidationFunction<T> = (value: T, validationResponse: ValidationResponse) => ValidationResponse | Promise<ValidationResponse>;
 export declare type PageCreateFormInputValues = {
     slug?: string;
+    title?: string;
     body?: string;
 };
 export declare type PageCreateFormValidationValues = {
     slug?: ValidationFunction<string>;
+    title?: ValidationFunction<string>;
     body?: ValidationFunction<string>;
 };
 export declare type FormProps<T> = Partial<T> & React.DOMAttributes<HTMLDivElement>;
 export declare type PageCreateFormOverridesProps = {
     PageCreateFormGrid?: FormProps<GridProps>;
     slug?: FormProps<TextFieldProps>;
+    title?: FormProps<TextFieldProps>;
     body?: FormProps<TextFieldProps>;
 } & EscapeHatchProps;
 export declare type PageCreateFormProps = React.PropsWithChildren<{

@@ -3,7 +3,7 @@ import Navbar from "./navbar";
 import styles from '@/styles/Home.module.css'
 import { View } from "@aws-amplify/ui-react";
 
-export default function Layout({ children, title, username, role, pageLinks }) {
+export default function Layout({ children, title }) {
 
   return (
     <>
@@ -14,7 +14,7 @@ export default function Layout({ children, title, username, role, pageLinks }) {
         <link rel="icon" href="/amplifyicon.svg" />
       </Head>
       <main className={styles.main}>
-        <Navbar username={username} role={role} pageLinks={pageLinks} />
+        <Navbar />
         {children}
         <View as="section" padding={'xxl'}>© Copyright, 2023</View>
       </main>

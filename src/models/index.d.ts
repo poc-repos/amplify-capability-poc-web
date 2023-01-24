@@ -120,6 +120,7 @@ type EagerPage = {
   };
   readonly id: string;
   readonly slug?: string | null;
+  readonly title?: string | null;
   readonly body?: string | null;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
@@ -132,6 +133,7 @@ type LazyPage = {
   };
   readonly id: string;
   readonly slug?: string | null;
+  readonly title?: string | null;
   readonly body?: string | null;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;

@@ -25,18 +25,22 @@ export default function PageCreateForm(props) {
   } = props;
   const initialValues = {
     slug: undefined,
+    title: undefined,
     body: undefined,
   };
   const [slug, setSlug] = React.useState(initialValues.slug);
+  const [title, setTitle] = React.useState(initialValues.title);
   const [body, setBody] = React.useState(initialValues.body);
   const [errors, setErrors] = React.useState({});
   const resetStateValues = () => {
     setSlug(initialValues.slug);
+    setTitle(initialValues.title);
     setBody(initialValues.body);
     setErrors({});
   };
   const validations = {
     slug: [],
+    title: [],
     body: [],
   };
   const runValidationTasks = async (fieldName, value) => {
@@ -58,6 +62,7 @@ export default function PageCreateForm(props) {
         event.preventDefault();
         let modelFields = {
           slug,
+          title,
           body,
         };
         const validationResponses = await Promise.all(
@@ -108,6 +113,7 @@ export default function PageCreateForm(props) {
           if (onChange) {
             const modelFields = {
               slug: value,
+              title,
               body,
             };
             const result = onChange(modelFields);
@@ -124,6 +130,31 @@ export default function PageCreateForm(props) {
         {...getOverrideProps(overrides, "slug")}
       ></TextField>
       <TextField
+        label="Title"
+        isRequired={false}
+        isReadOnly={false}
+        onChange={(e) => {
+          let { value } = e.target;
+          if (onChange) {
+            const modelFields = {
+              slug,
+              title: value,
+              body,
+            };
+            const result = onChange(modelFields);
+            value = result?.title ?? value;
+          }
+          if (errors.title?.hasError) {
+            runValidationTasks("title", value);
+          }
+          setTitle(value);
+        }}
+        onBlur={() => runValidationTasks("title", title)}
+        errorMessage={errors.title?.errorMessage}
+        hasError={errors.title?.hasError}
+        {...getOverrideProps(overrides, "title")}
+      ></TextField>
+      <TextField
         label="Body"
         isRequired={false}
         isReadOnly={false}
@@ -132,6 +163,7 @@ export default function PageCreateForm(props) {
           if (onChange) {
             const modelFields = {
               slug,
+              title,
               body: value,
             };
             const result = onChange(modelFields);

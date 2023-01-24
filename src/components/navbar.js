@@ -1,10 +1,31 @@
 import styles from '@/styles/Home.module.css'
 import { Divider, Flex, Image, Link, Menu, MenuButton, MenuItem, Text, useTheme } from '@aws-amplify/ui-react'
 import { useAuthenticator } from '@aws-amplify/ui-react';
+import { DataStore } from '@aws-amplify/datastore';
+import { Page } from '@/models';
+import { useEffect, useState } from 'react';
 
-export default function Navbar({ role, pageLinks }) {
+export default function Navbar({ pageLinks }) {
   const theme = useTheme();
+
   const { user, signOut } = useAuthenticator((context) => [context.user]);
+  console.log("user", user)
+  const userGroups = user?.getSignInUserSession()?.getIdToken()?.payload["cognito:groups"];
+  console.log("userGroups", userGroups)
+  const allUserGroups = userGroups ? userGroups.join(",") : "-";
+
+  const [items, setItems] = useState([]);
+
+  const getDataFromAWS = async () => {
+    const models = await DataStore.query(Page);
+    console.log(models);
+    setItems(models)
+  }
+
+  useEffect(() => {
+    getDataFromAWS();
+  }, []);
+
   return (
     <Flex
       direction="row"
@@ -14,7 +35,7 @@ export default function Navbar({ role, pageLinks }) {
       wrap="nowrap"
       gap="1rem"
       width={{ base: '100%', large: '85%' }}
-      position={{base: 'fixed', large: 'relative'}}
+      position={{ base: 'fixed', large: 'relative' }}
       className={styles.navbarmenu}
     >
       <div>
@@ -39,11 +60,11 @@ export default function Navbar({ role, pageLinks }) {
             </MenuButton>
           }
         >
-          <MenuItem isDisabled>Role:&nbsp;<i>{role || '-'}</i></MenuItem>
+          <Text padding={'medium'}><b>Role:&nbsp;</b><i style={{ color: theme.tokens.colors.teal[80] }}>{allUserGroups}</i></Text>
           <Divider />
           <MenuItem isDisabled>Pages</MenuItem>
-          {pageLinks && pageLinks.map((pageLink) => (
-            <MenuItem key={pageLink.text}>{pageLink.text}</MenuItem>
+          {items && items.map((page) => (
+            <MenuItem key={page.id}><a href={`/${page.slug}`}>{page.title}</a></MenuItem>
           ))}
           <Divider />
           <MenuItem onClick={signOut}>Signout</MenuItem>

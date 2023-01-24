@@ -7,13 +7,6 @@ import MyWorklist from '@/components/myworklist'
 
 export default function Home() {
   const title = "Amplify Studio";
-  const username = "Deven";
-  const role = 'Approver';
-  const pageLinks = [
-    { text: "Privacy", url: "/privacy" },
-    { text: "Sitemap", url: "/sitemap" },
-    { text: "Terms", url: "/terms" },
-  ];
   const webApps = [
     {
       title: 'Fiordland National Park',
@@ -40,7 +33,7 @@ export default function Home() {
   ];
 
   return (
-    <Layout title={title} username={username} role={role} pageLinks={pageLinks}>
+    <Layout title={title}>
       <View padding={{base: '6rem', large:'0'}}>
         <Tabs
           defaultIndex="0"
