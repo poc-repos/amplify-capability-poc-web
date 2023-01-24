@@ -55,3 +55,14 @@ export default function Home() {
     </Layout>
   )
 }
+
+export async function getStaticProps({ params }) {
+  // const model = await DataStore.query(Page, p => p.slug.eq(params.slug));
+  // console.log("*** ", (model[0].title))
+
+  return {
+      props: {
+          
+      },
+  }
+}

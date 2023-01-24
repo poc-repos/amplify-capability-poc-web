@@ -1,4 +1,4 @@
-import { Button, Card, Collection, Divider, Flex, Heading, Placeholder, Text } from '@aws-amplify/ui-react'
+import { Button, Card, Collection, Divider, Flex, Heading, Menu, MenuButton, MenuItem, Placeholder, Text, TextAreaField } from '@aws-amplify/ui-react'
 import { DataStore } from '@aws-amplify/datastore';
 import { WebApplications } from '@/models';
 import { useEffect, useState } from 'react'
@@ -19,6 +19,10 @@ const AppList = () => {
     useEffect(() => {
         getDataFromAWS();
     }, []);
+
+    const requestAccess = (webappid) => {
+
+    }
 
     return (
         <>
@@ -53,9 +57,31 @@ const AppList = () => {
                         <Heading level={4} padding="xs">{item.name}</Heading>
                         <Divider />
                         <Text padding={'small'}>{item.description}</Text>
-                        <Button variation="primary" isFullWidth>
+                        <Menu
+                            trigger={
+                                <MenuButton variation="menu">Request Access</MenuButton>
+                            }
+                        >
+                            <TextAreaField
+                            padding={'large'}
+                            autoComplete="off"
+                            descriptiveText="Enter reason for the access"
+                            direction="column"
+                            hasError={false}
+                            isDisabled={false}
+                            isReadOnly={false}
+                            isRequired={false}
+                            placeholder="Enter reason"
+                            rows="3"
+                            size="small"
+                            wrap="nowrap"
+                            />
+                            <Divider />
+                            <MenuItem>Submit</MenuItem>
+                        </Menu>
+                        {/* <Button variation="primary" isFullWidth onClick={() => requestAccess(item.id)}>
                             Request Access
-                        </Button>
+                        </Button> */}
                     </Card>
                 )}
             </Collection>
