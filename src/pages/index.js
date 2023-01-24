@@ -2,92 +2,53 @@ import Head from 'next/head'
 import { Inter } from '@next/font/google'
 import styles from '@/styles/Home.module.css'
 import { Flex, Image, Link, Menu, MenuButton, MenuItem, Text, useTheme } from '@aws-amplify/ui-react'
+import Layout from '@/components/layout'
+import AppList from '@/components/applist'
+import FAQList from '@/components/faqlist'
 
 const inter = Inter({ subsets: ['latin'] })
 
 export default function Home() {
   const theme = useTheme();
+  const title = "Amplify Studio";
+  const username = "Deven";
+  const role = 'Approver';
+  const pageLinks = [
+    { text: "Privacy", url: "/privacy" },
+    { text: "Sitemap", url: "/sitemap" },
+    { text: "Terms", url: "/terms" },
+  ];
+  const webApps = [
+    {
+      title: 'Fiordland National Park',
+      description: 'This national park includes the famous fjords of Milford, Dusky and Doubtful Sounds.',
+    },
+    {
+      title: 'Bay of Islands, North Island',
+      description: 'Three hours north of Auckland, this area features over 144 islands to explore.',
+    },
+    {
+      title: 'Queenstown, South Island',
+      description: "This hopping town is New Zealand's adventure capital and is located right on Lake Wakatipu.",
+    },
+    {
+      title: 'Fiordland National Park',
+      description:
+        'This national park includes the famous fjords of Milford, Dusky and Doubtful Sounds.',
+    },
+    {
+      title: 'Bay of Islands, North Island',
+      description:
+        'Three hours north of Auckland, this area features over 144 islands to explore.',
+    },
+  ];
+
   return (
-    <>
-        <div className={styles.center}>
-          <Image
-            className={styles.logo}
-            src="/next.svg"
-            alt="Next.js Logo"
-            width={180}
-            height={37}
-            priority
-          />
-          <div className={styles.thirteen}>
-            <Image
-              src="/thirteen.svg"
-              alt="13"
-              width={40}
-              height={31}
-              priority
-            />
-          </div>
-        </div>
-
-        <div className={styles.grid}>
-          <a
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            className={styles.card}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <h2 className={inter.className}>
-              Docs
-            </h2>
-            <p className={inter.className}>
-              Find in-depth information about Next.js features and&nbsp;API.
-            </p>
-          </a>
-
-          <a
-            href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            className={styles.card}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <h2 className={inter.className}>
-              Learn <span>-&gt;</span>
-            </h2>
-            <p className={inter.className}>
-              Learn about Next.js in an interactive course with&nbsp;quizzes!
-            </p>
-          </a>
-
-          <a
-            href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            className={styles.card}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <h2 className={inter.className}>
-              Templates <span>-&gt;</span>
-            </h2>
-            <p className={inter.className}>
-              Discover and deploy boilerplate example Next.js&nbsp;projects.
-            </p>
-          </a>
-
-          <a
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            className={styles.card}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <h2 className={inter.className}>
-              Deploy <span>-&gt;</span>
-            </h2>
-            <p className={inter.className}>
-              Instantly deploy your Next.js site to a shareable URL
-              with&nbsp;Vercel.
-            </p>
-          </a>
-        </div>
-      
-    </>
+    <Layout title={title} username={username} role={role} pageLinks={pageLinks}>
+      <div className={styles.center}>
+        <AppList items={webApps} />
+      </div>
+      <FAQList items={webApps} />
+    </Layout>
   )
 }

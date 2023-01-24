@@ -1,11 +1,21 @@
 import styles from '@/styles/Home.module.css'
-import { Flex, Image, Link, Menu, MenuButton, MenuItem, Text, useTheme } from '@aws-amplify/ui-react'
+import { Divider, Flex, Image, Link, Menu, MenuButton, MenuItem, Text, useTheme } from '@aws-amplify/ui-react'
 
-export default function Navbar({ username }) {
+export default function Navbar({ username, role, pageLinks }) {
   const theme = useTheme();
   return (
-    <div className={styles.description}>      
-      <div>      
+    <Flex
+      direction="row"
+      justifyContent="space-between"
+      alignItems="center"
+      alignContent="space-between"
+      wrap="nowrap"
+      gap="1rem"
+      width={{ base: '100%', large: '85%' }}
+      position={{base: 'fixed', large: 'relative'}}
+      className={styles.navbarmenu}
+    >
+      <div>
         <Link href="/">
           <Image
             src="/amplifylogo.svg"
@@ -18,19 +28,25 @@ export default function Navbar({ username }) {
       </div>
       <Text>
         <code className={styles.code}>
-          Hi,&nbsp;
+          Hi,
         </code>
-        <Menu menuAlign="end" className={styles.code}
+        <Menu menuAlign="end"
           trigger={
             <MenuButton variation="link">
               {username || "User"}
             </MenuButton>
           }
         >
-          <MenuItem isDisabled>Role:&nbsp;<i>Approver</i></MenuItem>
+          <MenuItem isDisabled>Role:&nbsp;<i>{role || '-'}</i></MenuItem>
+          <Divider />
+          <MenuItem isDisabled>Pages</MenuItem>
+          {pageLinks && pageLinks.map((pageLink) => (
+            <MenuItem>{pageLink.text}</MenuItem>
+          ))}
+          <Divider />
           <MenuItem>Signout</MenuItem>
         </Menu>
       </Text>
-    </div>
+    </Flex>
   )
 }
