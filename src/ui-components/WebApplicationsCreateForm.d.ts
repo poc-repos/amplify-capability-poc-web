@@ -15,19 +15,16 @@ export declare type ValidationFunction<T> = (value: T, validationResponse: Valid
 export declare type WebApplicationsCreateFormInputValues = {
     name?: string;
     description?: string;
-    approvergroup?: string;
 };
 export declare type WebApplicationsCreateFormValidationValues = {
     name?: ValidationFunction<string>;
     description?: ValidationFunction<string>;
-    approvergroup?: ValidationFunction<string>;
 };
 export declare type FormProps<T> = Partial<T> & React.DOMAttributes<HTMLDivElement>;
 export declare type WebApplicationsCreateFormOverridesProps = {
     WebApplicationsCreateFormGrid?: FormProps<GridProps>;
     name?: FormProps<TextFieldProps>;
     description?: FormProps<TextFieldProps>;
-    approvergroup?: FormProps<TextFieldProps>;
 } & EscapeHatchProps;
 export declare type WebApplicationsCreateFormProps = React.PropsWithChildren<{
     overrides?: WebApplicationsCreateFormOverridesProps | undefined | null;

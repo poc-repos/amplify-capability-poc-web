@@ -9,7 +9,13 @@ import * as React from "react";
 import { fetchByPath, validateField } from "./utils";
 import { FAQs } from "../models";
 import { getOverrideProps } from "@aws-amplify/ui-react/internal";
-import { Button, Flex, Grid, TextField } from "@aws-amplify/ui-react";
+import {
+  Button,
+  Flex,
+  Grid,
+  TextAreaField,
+  TextField,
+} from "@aws-amplify/ui-react";
 import { DataStore } from "aws-amplify";
 export default function FAQsUpdateForm(props) {
   const {
@@ -136,7 +142,7 @@ export default function FAQsUpdateForm(props) {
         hasError={errors.question?.hasError}
         {...getOverrideProps(overrides, "question")}
       ></TextField>
-      <TextField
+      <TextAreaField
         label="Answer"
         isRequired={false}
         isReadOnly={false}
@@ -160,7 +166,7 @@ export default function FAQsUpdateForm(props) {
         errorMessage={errors.answer?.errorMessage}
         hasError={errors.answer?.hasError}
         {...getOverrideProps(overrides, "answer")}
-      ></TextField>
+      ></TextAreaField>
       <Flex
         justifyContent="space-between"
         {...getOverrideProps(overrides, "CTAFlex")}

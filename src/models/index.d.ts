@@ -59,7 +59,6 @@ type EagerWebApplications = {
   readonly id: string;
   readonly name?: string | null;
   readonly description?: string | null;
-  readonly approvergroup?: string | null;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
 }
@@ -72,7 +71,6 @@ type LazyWebApplications = {
   readonly id: string;
   readonly name?: string | null;
   readonly description?: string | null;
-  readonly approvergroup?: string | null;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
 }

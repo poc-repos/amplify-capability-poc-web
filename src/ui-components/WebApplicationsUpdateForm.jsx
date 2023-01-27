@@ -27,21 +27,16 @@ export default function WebApplicationsUpdateForm(props) {
   const initialValues = {
     name: undefined,
     description: undefined,
-    approvergroup: undefined,
   };
   const [name, setName] = React.useState(initialValues.name);
   const [description, setDescription] = React.useState(
     initialValues.description
-  );
-  const [approvergroup, setApprovergroup] = React.useState(
-    initialValues.approvergroup
   );
   const [errors, setErrors] = React.useState({});
   const resetStateValues = () => {
     const cleanValues = { ...initialValues, ...webApplicationsRecord };
     setName(cleanValues.name);
     setDescription(cleanValues.description);
-    setApprovergroup(cleanValues.approvergroup);
     setErrors({});
   };
   const [webApplicationsRecord, setWebApplicationsRecord] =
@@ -59,7 +54,6 @@ export default function WebApplicationsUpdateForm(props) {
   const validations = {
     name: [],
     description: [],
-    approvergroup: [],
   };
   const runValidationTasks = async (fieldName, value) => {
     let validationResponse = validateField(value, validations[fieldName]);
@@ -81,7 +75,6 @@ export default function WebApplicationsUpdateForm(props) {
         let modelFields = {
           name,
           description,
-          approvergroup,
         };
         const validationResponses = await Promise.all(
           Object.keys(validations).reduce((promises, fieldName) => {
@@ -134,7 +127,6 @@ export default function WebApplicationsUpdateForm(props) {
             const modelFields = {
               name: value,
               description,
-              approvergroup,
             };
             const result = onChange(modelFields);
             value = result?.name ?? value;
@@ -160,7 +152,6 @@ export default function WebApplicationsUpdateForm(props) {
             const modelFields = {
               name,
               description: value,
-              approvergroup,
             };
             const result = onChange(modelFields);
             value = result?.description ?? value;
@@ -174,32 +165,6 @@ export default function WebApplicationsUpdateForm(props) {
         errorMessage={errors.description?.errorMessage}
         hasError={errors.description?.hasError}
         {...getOverrideProps(overrides, "description")}
-      ></TextField>
-      <TextField
-        label="Approvergroup"
-        isRequired={false}
-        isReadOnly={false}
-        defaultValue={approvergroup}
-        onChange={(e) => {
-          let { value } = e.target;
-          if (onChange) {
-            const modelFields = {
-              name,
-              description,
-              approvergroup: value,
-            };
-            const result = onChange(modelFields);
-            value = result?.approvergroup ?? value;
-          }
-          if (errors.approvergroup?.hasError) {
-            runValidationTasks("approvergroup", value);
-          }
-          setApprovergroup(value);
-        }}
-        onBlur={() => runValidationTasks("approvergroup", approvergroup)}
-        errorMessage={errors.approvergroup?.errorMessage}
-        hasError={errors.approvergroup?.hasError}
-        {...getOverrideProps(overrides, "approvergroup")}
       ></TextField>
       <Flex
         justifyContent="space-between"

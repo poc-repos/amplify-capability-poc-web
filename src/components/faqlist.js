@@ -1,9 +1,7 @@
-import { Expander, ExpanderItem, Flex, Heading, Placeholder, View } from '@aws-amplify/ui-react'
-import { DataStore } from '@aws-amplify/datastore';
+import { Expander, ExpanderItem, Flex, Heading, Placeholder, useTheme, View } from '@aws-amplify/ui-react'
 import ReactMarkdown from 'react-markdown';
 
 const FAQList = ({items}) => {
-
     return (
         <View width={'100%'}>
             {items && <Heading padding={'xxl 0 large 0'} level={4}>Frequently Asked Questions</Heading>}
