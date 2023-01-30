@@ -20,6 +20,12 @@
       },
       "auth": {
         "AmplifyCapabilityPoC": {}
+      },
+      "api": {
+        "AmplifyCapabilityPoC": {}
+      },
+      "analytics": {
+        "amplifycapabilitypoc": {}
       }
     }
   }

@@ -73,5 +73,11 @@
         }
       ]
     }
+  },
+  "analytics": {
+    "amplifycapabilitypoc": {
+      "service": "Pinpoint",
+      "providerPlugin": "awscloudformation"
+    }
   }
 }

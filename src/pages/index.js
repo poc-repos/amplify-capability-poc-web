@@ -51,7 +51,6 @@ export async function getServerSideProps() {
     props: {
       webapps: JSON.stringify(webapps),
       faqs: JSON.stringify(faqs),
-      // pages: JSON.stringify(pages),
     },
   }
 }
