@@ -1,6 +1,7 @@
 import '@/styles/globals.css'
 import { ThemeProvider, Authenticator } from "@aws-amplify/ui-react";
 import { Amplify, Analytics } from 'aws-amplify';
+import { AmazonAIPredictionsProvider } from '@aws-amplify/predictions';
 
 import awsconfig from '../aws-exports';
 
@@ -8,6 +9,7 @@ import "@aws-amplify/ui-react/styles.css";
 import { studioTheme } from "../ui-components";
 
 Amplify.configure(awsconfig);
+Amplify.addPluggable(new AmazonAIPredictionsProvider());
 
 export default function App({ Component, pageProps }) {
 
@@ -32,6 +34,9 @@ export default function App({ Component, pageProps }) {
       // the default function
       return window.location.origin + window.location.pathname;
     }
+
+    //
+
   });
 
   return (

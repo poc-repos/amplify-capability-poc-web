@@ -1,12 +1,15 @@
 import { AccessRequests } from "@/models";
+import { getSentimentPrediction } from "@/utils";
 import { Alert, Badge, Card, Divider, Flex, Heading, Menu, MenuButton, MenuItem, Radio, RadioGroupField, Text, TextAreaField, useAuthenticator } from "@aws-amplify/ui-react";
 import { DataStore } from "aws-amplify";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const WorklistCard = ({ item }) => {
     const [reason, setReason] = useState(item.approverreason);
     const [isSubmitted, setIsSubmitted] = useState(false);
     const [status, setStatus] = useState(item.status || 'PENDING');
+    const [sentiment, setSentiment] = useState("");
+    const [sentimentPercent, setSentimentPercent] = useState();
     const { user } = useAuthenticator((context) => [context.user]);
 
     const processRequest = async () => {
@@ -20,7 +23,7 @@ const WorklistCard = ({ item }) => {
                 // Update the values on {item} variable to update DataStore entry
                 record.approverusername = user && user.username;
                 record.approverreason = reason;
-                record.status = status === "PENDING"?null:status;
+                record.status = status === "PENDING" ? null : status;
             }));
             item.approverusername = user && user.username;
             item.approverreason = reason;
@@ -30,12 +33,35 @@ const WorklistCard = ({ item }) => {
         }
     }
 
+    const captureSentiment = async (text) => {
+        const result = text && await getSentimentPrediction(text);
+        setSentiment(result.predominant);
+        if(result.predominant === "NEUTRAL") setSentimentPercent(result.neutral);
+        if(result.predominant === "POSITIVE") setSentimentPercent(result.positive);
+        if(result.predominant === "NEGATIVE") setSentimentPercent(result.negative);
+    }
+
+    useEffect(() => {
+        captureSentiment(item.reason);
+    }, [])
+
     return (
         <Card key={item.id} padding="1rem" borderRadius="medium" variation="outlined">
             <Heading level={4} padding={"0 0 small 0"}>{item.appname}</Heading>
             <Divider />
             <Text><b>Request Date: </b>{item.requestdate}</Text>
             <Text><b>Reason: </b>{item.reason}</Text>
+            <Divider />
+            <Flex>
+                <Text variation="success"><b>Sentiment Analysis of the Reason: </b></Text>
+                Overall Sentiment is
+                <strong>
+                    {sentiment == "NEUTRAL" && <Text variation='info'>{sentiment}</Text>}
+                    {sentiment == "POSITIVE" && <Text variation='success'>{sentiment}</Text>}
+                    {sentiment == "NEGATIVE" && <Text variation='error'>{sentiment}</Text>}
+                </strong>
+                with accuracy of <strong>{sentimentPercent && Math.round(sentimentPercent * 10000) / 100}</strong> %
+            </Flex>
             <Divider />
             <Text><b>Approved By: </b>{item.approverusername || '-NA-'}</Text>
             <Text><b>Approval Reason: </b>{item.approverreason || '-NA-'}</Text>

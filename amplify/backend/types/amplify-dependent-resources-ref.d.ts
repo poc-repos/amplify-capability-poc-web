@@ -23,5 +23,11 @@ export type AmplifyDependentResourcesAttributes = {
             "Id": "string",
             "appName": "string"
         }
+    },
+    "predictions": {
+        "amplifypocinterprettext": {
+            "region": "string",
+            "type": "string"
+        }
     }
 }

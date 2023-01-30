@@ -1,7 +1,6 @@
 import { AccessRequests } from '@/models';
-import { Badge, Card, Collection, Divider, Flex, Heading, Menu, MenuButton, MenuItem, Placeholder, Radio, RadioGroupField, Text, TextAreaField, useAuthenticator } from '@aws-amplify/ui-react'
+import { Card, Collection, Flex, Placeholder, Text, useAuthenticator } from '@aws-amplify/ui-react'
 import { DataStore } from 'aws-amplify';
-import moment from 'moment';
 import { useEffect, useState } from 'react';
 import WorklistCard from './worklistcard';
 
@@ -18,7 +17,7 @@ const MyWorklist = ({ webapps }) => {
         const sortedModel = model.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
         console.table(sortedModel)
         const transformedRequests = sortedModel.map(item => {
-            const webapp = webapps && webapps.filter(w => w.id == item.accessRequestsWebApplicationsRelationId);
+            const webapp = webapps && webapps.filter(w => w.id == item.accessRequestsWebApplicationsRelationId);            
             return {
                 id: item.id,
                 username: item.username,

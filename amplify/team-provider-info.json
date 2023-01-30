@@ -26,6 +26,9 @@
       },
       "analytics": {
         "amplifycapabilitypoc": {}
+      },
+      "predictions": {
+        "amplifypocinterprettext": {}
       }
     }
   }
