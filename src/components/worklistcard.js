@@ -20,7 +20,7 @@ const WorklistCard = ({ item }) => {
                 // Update the values on {item} variable to update DataStore entry
                 record.approverusername = user && user.username;
                 record.approverreason = reason;
-                record.status = status;
+                record.status = status === "PENDING"?"":status;
             }));
             item.approverusername = user && user.username;
             item.approverreason = reason;
