@@ -64,6 +64,8 @@ const MyRequests = ({webapps}) => {
                 }
                 searchFilter={(item, keyword) =>
                     item.reason.toLowerCase().includes(keyword.toLowerCase())
+                    || item.appname.toLowerCase().includes(keyword.toLowerCase())
+                    || item.status.toLowerCase().includes(keyword.toLowerCase())
                 }
                 gap="0.5rem"
             >

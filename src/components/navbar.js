@@ -5,14 +5,24 @@ import { DataStore } from '@aws-amplify/datastore';
 import { Page } from '@/models';
 import { useEffect, useState } from 'react';
 
-export default function Navbar({ pages }) {
+export default function Navbar() {
   const theme = useTheme();
+  const [pages, setPages] = useState([]);
 
   const { user, signOut } = useAuthenticator((context) => [context.user]);
   console.log("user", user)
   const userGroups = user?.getSignInUserSession()?.getIdToken()?.payload["cognito:groups"];
   console.log("userGroups", userGroups)
   const allUserGroups = userGroups ? userGroups.join(",") : "-";
+
+  const getDataFromAWS = async () => {
+    const model = await DataStore.query(Page);
+    setPages(model)
+  }
+
+  useEffect(()=>{
+    getDataFromAWS();
+  },[]);
 
   return (
     <Flex

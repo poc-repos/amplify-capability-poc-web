@@ -6,7 +6,7 @@
 
 import * as React from "react";
 import { EscapeHatchProps } from "@aws-amplify/ui-react/internal";
-import { GridProps, TextFieldProps } from "@aws-amplify/ui-react";
+import { GridProps, TextAreaFieldProps, TextFieldProps } from "@aws-amplify/ui-react";
 export declare type ValidationResponse = {
     hasError: boolean;
     errorMessage?: string;
@@ -27,7 +27,7 @@ export declare type PageCreateFormOverridesProps = {
     PageCreateFormGrid?: FormProps<GridProps>;
     slug?: FormProps<TextFieldProps>;
     title?: FormProps<TextFieldProps>;
-    body?: FormProps<TextFieldProps>;
+    body?: FormProps<TextAreaFieldProps>;
 } & EscapeHatchProps;
 export declare type PageCreateFormProps = React.PropsWithChildren<{
     overrides?: PageCreateFormOverridesProps | undefined | null;

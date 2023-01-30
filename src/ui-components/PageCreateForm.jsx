@@ -9,7 +9,13 @@ import * as React from "react";
 import { fetchByPath, validateField } from "./utils";
 import { Page } from "../models";
 import { getOverrideProps } from "@aws-amplify/ui-react/internal";
-import { Button, Flex, Grid, TextField } from "@aws-amplify/ui-react";
+import {
+  Button,
+  Flex,
+  Grid,
+  TextAreaField,
+  TextField,
+} from "@aws-amplify/ui-react";
 import { DataStore } from "aws-amplify";
 export default function PageCreateForm(props) {
   const {
@@ -154,7 +160,7 @@ export default function PageCreateForm(props) {
         hasError={errors.title?.hasError}
         {...getOverrideProps(overrides, "title")}
       ></TextField>
-      <TextField
+      <TextAreaField
         label="Body"
         isRequired={false}
         isReadOnly={false}
@@ -178,7 +184,7 @@ export default function PageCreateForm(props) {
         errorMessage={errors.body?.errorMessage}
         hasError={errors.body?.hasError}
         {...getOverrideProps(overrides, "body")}
-      ></TextField>
+      ></TextAreaField>
       <Flex
         justifyContent="space-between"
         {...getOverrideProps(overrides, "CTAFlex")}

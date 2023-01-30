@@ -6,10 +6,10 @@
 
 export { default as studioTheme } from "./studioTheme";
 export { default as AccessRequestsCreateForm } from "./AccessRequestsCreateForm";
+export { default as PageCreateForm } from "./PageCreateForm";
 export { default as FAQsUpdateForm } from "./FAQsUpdateForm";
 export { default as AccessRequestsUpdateForm } from "./AccessRequestsUpdateForm";
 export { default as WebApplicationsCreateForm } from "./WebApplicationsCreateForm";
 export { default as WebApplicationsUpdateForm } from "./WebApplicationsUpdateForm";
 export { default as FAQsCreateForm } from "./FAQsCreateForm";
-export { default as PageCreateForm } from "./PageCreateForm";
 export { default as PageUpdateForm } from "./PageUpdateForm";

@@ -7,39 +7,15 @@ import MyWorklist from '@/components/myworklist'
 import { DataStore } from '@aws-amplify/datastore';
 import { FAQs, Page, WebApplications } from '@/models'
 
-export default function Home({ webapps, faqs, pages }) {
+export default function Home({ webapps, faqs }) {
   const title = "Amplify Studio";
   const { user } = useAuthenticator((context) => [context.user]);
   const userGroups = user?.getSignInUserSession()?.getIdToken()?.payload["cognito:groups"];
   const isRequester = false || (userGroups && userGroups.indexOf("AllRequesters") >= 0)
   const isApprover = false || (userGroups && userGroups.indexOf("AllApprovers") >= 0)
-  const webApps = [
-    {
-      title: 'Fiordland National Park',
-      description: 'This national park includes the famous fjords of Milford, Dusky and Doubtful Sounds.',
-    },
-    {
-      title: 'Bay of Islands, North Island',
-      description: 'Three hours north of Auckland, this area features over 144 islands to explore.',
-    },
-    {
-      title: 'Queenstown, South Island',
-      description: "This hopping town is New Zealand's adventure capital and is located right on Lake Wakatipu.",
-    },
-    {
-      title: 'Fiordland National Park',
-      description:
-        'This national park includes the famous fjords of Milford, Dusky and Doubtful Sounds.',
-    },
-    {
-      title: 'Bay of Islands, North Island',
-      description:
-        'Three hours north of Auckland, this area features over 144 islands to explore.',
-    },
-  ];
-
+  
   return (
-    <Layout title={title} pages={JSON.parse(pages)}>
+    <Layout title={title}>
       <View padding={{ base: '6rem', large: '0' }}>
         <Tabs
           defaultIndex="0"
@@ -53,7 +29,7 @@ export default function Home({ webapps, faqs, pages }) {
           </TabItem>
           }
           {isApprover && <TabItem title="My Worklist">
-            <MyWorklist items={webApps} />
+            <MyWorklist webapps={JSON.parse(webapps)} />
           </TabItem>
           }
         </Tabs>
@@ -69,28 +45,13 @@ export async function getServerSideProps() {
   // Fetch data from external API
   const webapps = await DataStore.query(WebApplications);
   const faqs = await DataStore.query(FAQs);
-  const pages = await DataStore.query(Page);
 
   // Pass data to the page via props
   return {
     props: {
       webapps: JSON.stringify(webapps),
       faqs: JSON.stringify(faqs),
-      pages: JSON.stringify(pages),
+      // pages: JSON.stringify(pages),
     },
   }
 }
-
-// export async function getStaticProps({ params }) {
-//   const webapps = await DataStore.query(WebApplications);
-//   const faqs = await DataStore.query(FAQs);
-//   const pages = await DataStore.query(Page);
-
-//   return {
-//       props: {
-//           webapps: JSON.stringify(webapps),
-//           faqs: JSON.stringify(faqs),
-//           pages: JSON.stringify(pages),
-//       },
-//   }
-// }
