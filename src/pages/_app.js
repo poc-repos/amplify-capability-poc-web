@@ -7,11 +7,19 @@ import awsconfig from '../aws-exports';
 
 import "@aws-amplify/ui-react/styles.css";
 import { studioTheme } from "../ui-components";
+import { useEffect } from 'react';
 
 Amplify.configure(awsconfig);
-Amplify.addPluggable(new AmazonAIPredictionsProvider());
 
 export default function App({ Component, pageProps }) {
+
+  useEffect(() => {
+    try {
+      Amplify.addPluggable(new AmazonAIPredictionsProvider())
+    } catch (error) {
+      console.log('Already added pluggable')
+    }
+  }, []);
 
   //enable session tracking
   Analytics.autoTrack('session', {

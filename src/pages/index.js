@@ -16,7 +16,7 @@ export default function Home({ webapps, faqs }) {
   
   return (
     <Layout title={title}>
-      <View padding={{ base: '6rem', large: '0' }}>
+      <View padding={{ base: '6rem 0 0 0', large: '0' }}>
         <Tabs
           defaultIndex="0"
           padding={'1rem'}

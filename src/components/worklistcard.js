@@ -50,9 +50,8 @@ const WorklistCard = ({ item }) => {
             <Heading level={4} padding={"0 0 small 0"}>{item.appname}</Heading>
             <Divider />
             <Text><b>Request Date: </b>{item.requestdate}</Text>
-            <Text><b>Reason: </b>{item.reason}</Text>
+            <Text wrap><b>Reason: </b>{item.reason}</Text>
             <Divider />
-            <Flex>
                 <Text variation="success"><b>Sentiment Analysis of the Reason: </b></Text>
                 Overall Sentiment is
                 <strong>
@@ -61,7 +60,6 @@ const WorklistCard = ({ item }) => {
                     {sentiment == "NEGATIVE" && <Text variation='error'>{sentiment}</Text>}
                 </strong>
                 with accuracy of <strong>{sentimentPercent && Math.round(sentimentPercent * 10000) / 100}</strong> %
-            </Flex>
             <Divider />
             <Text><b>Approved By: </b>{item.approverusername || '-NA-'}</Text>
             <Text><b>Approval Reason: </b>{item.approverreason || '-NA-'}</Text>
