@@ -9,6 +9,7 @@ const WorklistCard = ({ item }) => {
     const [isSubmitted, setIsSubmitted] = useState(false);
     const [status, setStatus] = useState(item.status || 'PENDING');
     const [sentiment, setSentiment] = useState("");
+    const [sentimentVariation, setSentimentVariation] = useState();
     const [sentimentPercent, setSentimentPercent] = useState();
     const { user } = useAuthenticator((context) => [context.user]);
 
@@ -36,9 +37,9 @@ const WorklistCard = ({ item }) => {
     const captureSentiment = async (text) => {
         const result = text && await getSentimentPrediction(text);
         setSentiment(result.predominant);
-        if(result.predominant === "NEUTRAL") setSentimentPercent(result.neutral);
-        if(result.predominant === "POSITIVE") setSentimentPercent(result.positive);
-        if(result.predominant === "NEGATIVE") setSentimentPercent(result.negative);
+        if (result.predominant === "NEUTRAL") { setSentimentPercent(result.neutral); setSentimentVariation("info"); }
+        if (result.predominant === "POSITIVE") { setSentimentPercent(result.positive); setSentimentVariation("success"); }
+        if (result.predominant === "NEGATIVE") { setSentimentPercent(result.negative); setSentimentVariation("error"); }
     }
 
     useEffect(() => {
@@ -48,18 +49,18 @@ const WorklistCard = ({ item }) => {
     return (
         <Card key={item.id} padding="1rem" borderRadius="medium" variation="outlined">
             <Heading level={4} padding={"0 0 small 0"}>{item.appname}</Heading>
+            {sentiment &&
+                <Alert
+                    variation={sentimentVariation}
+                    // isDismissible={true}
+                    hasIcon={true}
+                >
+                    AI-Based Sentiment Analysis of Reason is <strong>{sentiment}</strong> with accuracy of <strong>{sentimentPercent && Math.round(sentimentPercent * 10000) / 100}</strong> %
+                </Alert>
+            }
             <Divider />
             <Text><b>Request Date: </b>{item.requestdate}</Text>
             <Text wrap><b>Reason: </b>{item.reason}</Text>
-            <Divider />
-                <Text variation="success"><b>Sentiment Analysis of the Reason: </b></Text>
-                Overall Sentiment is
-                <strong>
-                    {sentiment == "NEUTRAL" && <Text variation='info'>{sentiment}</Text>}
-                    {sentiment == "POSITIVE" && <Text variation='success'>{sentiment}</Text>}
-                    {sentiment == "NEGATIVE" && <Text variation='error'>{sentiment}</Text>}
-                </strong>
-                with accuracy of <strong>{sentimentPercent && Math.round(sentimentPercent * 10000) / 100}</strong> %
             <Divider />
             <Text><b>Approved By: </b>{item.approverusername || '-NA-'}</Text>
             <Text><b>Approval Reason: </b>{item.approverreason || '-NA-'}</Text>

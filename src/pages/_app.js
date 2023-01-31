@@ -9,7 +9,8 @@ import "@aws-amplify/ui-react/styles.css";
 import { studioTheme } from "../ui-components";
 import { useEffect } from 'react';
 
-Amplify.configure(awsconfig);
+// Amplify.configure(awsconfig);
+Amplify.configure({ ...awsconfig, ssr: true });
 
 export default function App({ Component, pageProps }) {
 
