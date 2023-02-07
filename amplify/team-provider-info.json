@@ -28,7 +28,8 @@
         "amplifycapabilitypoc": {}
       },
       "predictions": {
-        "amplifypocinterprettext": {}
+        "amplifypocinterprettext": {},
+        "translateTextbca80352": {}
       }
     }
   }

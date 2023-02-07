@@ -14,7 +14,7 @@ const MyWorklist = ({ webapps }) => {
     const getDataFromAWS = async () => {
         setLoading(true);
         const model = await DataStore.query(AccessRequests);
-        const sortedModel = model.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
+        const sortedModel = model.sort((a, b) => new Date(b.requestdate) - new Date(a.requestdate))
         console.table(sortedModel)
         const transformedRequests = sortedModel.map(item => {
             const webapp = webapps && webapps.filter(w => w.id == item.accessRequestsWebApplicationsRelationId);            

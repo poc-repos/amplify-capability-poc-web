@@ -1,6 +1,6 @@
 import { AccessRequests } from "@/models";
-import { getSentimentPrediction } from "@/utils";
-import { Alert, Badge, Card, Divider, Flex, Heading, Menu, MenuButton, MenuItem, Radio, RadioGroupField, Text, TextAreaField, useAuthenticator } from "@aws-amplify/ui-react";
+import { getSentimentPrediction, textTranslation } from "@/utils";
+import { Alert, Badge, Card, Divider, Flex, Heading, Menu, MenuButton, MenuItem, Radio, RadioGroupField, SwitchField, Text, TextAreaField, useAuthenticator } from "@aws-amplify/ui-react";
 import { DataStore } from "aws-amplify";
 import { useEffect, useState } from "react";
 
@@ -11,6 +11,10 @@ const WorklistCard = ({ item }) => {
     const [sentiment, setSentiment] = useState("");
     const [sentimentVariation, setSentimentVariation] = useState();
     const [sentimentPercent, setSentimentPercent] = useState();
+    const [isChecked, setIsChecked] = useState(false);
+    const [isNonEnglish, setIsNonEnglish] = useState(false);
+    const [translatedText, setTranslatedText] = useState("");
+
     const { user } = useAuthenticator((context) => [context.user]);
 
     const processRequest = async () => {
@@ -42,8 +46,19 @@ const WorklistCard = ({ item }) => {
         if (result.predominant === "NEGATIVE") { setSentimentPercent(result.negative); setSentimentVariation("error"); }
     }
 
+    const checkTranslationRequirement = async (text) => {
+        const result = text && await textTranslation(text);
+        if (result) {
+            setIsNonEnglish(text !== result.text);
+            setTranslatedText(result.text);
+        }
+    }
+
     useEffect(() => {
         captureSentiment(item.reason);
+        checkTranslationRequirement(item.reason);
+        // textTranslation("I really appreciated reading about these great places to visit.")
+        // textTranslation("Translate es un servicio de traducción automática neuronal multilingüe para traducir texto, documentos y sitios web de un idioma a otro")
     }, [])
 
     return (
@@ -60,7 +75,18 @@ const WorklistCard = ({ item }) => {
             }
             <Divider />
             <Text><b>Request Date: </b>{item.requestdate}</Text>
-            <Text wrap><b>Reason: </b>{item.reason}</Text>
+            <Text wrap><b>Reason: </b>{isChecked ? translatedText : item.reason}</Text>
+            {isNonEnglish && <SwitchField
+                size={'small'}
+                isDisabled={false}
+                label={isChecked ? "See Original Text" : "See Translated Text"}
+                labelPosition="end"
+                isChecked={isChecked}
+                onChange={(e) => {
+                    setIsChecked(e.target.checked);
+                }}
+            />
+            }
             <Divider />
             <Text><b>Approved By: </b>{item.approverusername || '-NA-'}</Text>
             <Text><b>Approval Reason: </b>{item.approverreason || '-NA-'}</Text>
