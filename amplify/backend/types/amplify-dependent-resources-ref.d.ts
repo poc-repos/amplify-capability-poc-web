@@ -1,4 +1,11 @@
 export type AmplifyDependentResourcesAttributes = {
+    "analytics": {
+        "amplifycapabilitypoc": {
+            "Region": "string",
+            "Id": "string",
+            "appName": "string"
+        }
+    },
     "api": {
         "AmplifyCapabilityPoC": {
             "GraphQLAPIKeyOutput": "string",
@@ -15,13 +22,6 @@ export type AmplifyDependentResourcesAttributes = {
             "UserPoolName": "string",
             "AppClientIDWeb": "string",
             "AppClientID": "string"
-        }
-    },
-    "analytics": {
-        "amplifycapabilitypoc": {
-            "Region": "string",
-            "Id": "string",
-            "appName": "string"
         }
     },
     "predictions": {

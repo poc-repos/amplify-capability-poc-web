@@ -1,4 +1,10 @@
 {
+  "analytics": {
+    "amplifycapabilitypoc": {
+      "providerPlugin": "awscloudformation",
+      "service": "Pinpoint"
+    }
+  },
   "api": {
     "AmplifyCapabilityPoC": {
       "dependsOn": [],
@@ -74,22 +80,16 @@
       ]
     }
   },
-  "analytics": {
-    "amplifycapabilitypoc": {
-      "service": "Pinpoint",
-      "providerPlugin": "awscloudformation"
-    }
-  },
   "predictions": {
     "amplifypocinterprettext": {
+      "interpretType": "interpretText",
       "providerPlugin": "awscloudformation",
-      "service": "Comprehend",
-      "interpretType": "interpretText"
+      "service": "Comprehend"
     },
     "translateTextbca80352": {
+      "convertType": "translateText",
       "providerPlugin": "awscloudformation",
-      "service": "Translate",
-      "convertType": "translateText"
+      "service": "Translate"
     }
   }
 }
