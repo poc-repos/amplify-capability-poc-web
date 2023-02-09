@@ -24,7 +24,7 @@ const MyWorklist = ({ webapps }) => {
                 reason: item.accessreason,
                 status: item.status,
                 appid: item.accessRequestsWebApplicationsRelationId,
-                appname: webapp && webapp[0].name,
+                appname: webapp && webapp[0] && webapp[0].name,
                 requestdate: item.requestdate,
                 approverusername: item.approverusername,
                 approverreason: item.approverreason

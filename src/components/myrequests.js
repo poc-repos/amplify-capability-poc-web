@@ -14,7 +14,7 @@ const MyRequests = ({webapps}) => {
     const getDataFromAWS = async () => {
         setLoading(true);
         const model = await DataStore.query(AccessRequests, a => a.username.eq(user && user.username));
-        const sortedModel = model.sort((a, b) => new Date(b.updatedAt) - new Date(a.updatedAt))
+        const sortedModel = model.sort((a, b) => new Date(b.requestdate) - new Date(a.requestdate))
         console.table(sortedModel)
         const transformedRequests = sortedModel.map(item => {
             const webapp = webapps && webapps.filter(w => w.id == item.accessRequestsWebApplicationsRelationId);
@@ -24,7 +24,7 @@ const MyRequests = ({webapps}) => {
                 reason: item.accessreason,
                 status: item.status,
                 appid: item.accessRequestsWebApplicationsRelationId,
-                appname: webapp && webapp[0].name,
+                appname: webapp && webapp[0] && webapp[0].name,
                 requestdate: item.requestdate,
                 approverusername: item.approverusername,
                 approverreason: item.approverreason
