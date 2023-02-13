@@ -13,8 +13,6 @@ const MyRequests = ({webapps}) => {
 
     const getDataFromAWS = async () => {
         setLoading(true);
-        //clear the local cache
-        await DataStore.clear();
         const model = await DataStore.query(AccessRequests, a => a.username.eq(user && user.username));
         console.log("***** model",model)
         const sortedModel = model.sort((a, b) => new Date(b.requestdate) - new Date(a.requestdate))
